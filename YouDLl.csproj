@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.Common" Version="109.1.110" />
+    <PackageReference Include="CefSharp.WinForms" Version="109.1.110" />
+    <PackageReference Include="EO.WebBrowser" Version="23.1.4" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CefSharp.WinForms">
+      <HintPath>bin\x64\Debug\net6.0-windows\CefSharp.WinForms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
