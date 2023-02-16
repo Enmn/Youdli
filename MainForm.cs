@@ -17,14 +17,27 @@ namespace YouDLl
         {
             InitializeComponent();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             webView.Create(panel1.Handle);
             ModifyProgressBarColor.SetState(progressBar1, progessBarRed);
         }
-
-        private async void btnGo_Click(object sender, EventArgs e)
+        private String CheckUrlorId(string text)
         {
+            try
+            {
+                string baseUrl = text.Split("/")[2];
+            }
+            catch
+            {
+                return "https://www.youtube.com/watch?v=" + text;
+            }
+            return text;
+        }
+        private async void VideoDownload()
+        {
+            var url = CheckUrlorId(txtUrl.Text);
             var youtube = new YoutubeClient();
             var video = await youtube.Videos.GetAsync(url);
             var title = video.Title;
@@ -38,8 +51,6 @@ namespace YouDLl
             webView.Url = "https://www.youtube.com/embed/" + videoId;
 
             this.Text = "Youdli - " + title;
-
-
 
             lblTitle.Text = title;
             lblAuthor.Text = author;
@@ -59,11 +70,24 @@ namespace YouDLl
             await youtube.Videos.Streams.DownloadAsync(streamInfo, ofd.SelectedPath + "\\" + fileName, progress);
             MessageBox.Show("the Video download Completed");
         }
-
+        private async void btnGo_Click(object sender, EventArgs e)
+        {
+            VideoDownload();
+        }
         private void btnPath_Click(object sender, EventArgs e)
         {
             ofd.ShowDialog();
             txtPath.Text = ofd.SelectedPath.ToString();
+        }
+
+    }
+    public static class ModifyProgressBarColor
+    {
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr w, IntPtr l);
+        public static void SetState(this ProgressBar pBar, int state)
+        {
+            SendMessage(pBar.Handle, 1040, (IntPtr)state, IntPtr.Zero);
         }
     }
 
