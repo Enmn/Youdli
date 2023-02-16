@@ -23,6 +23,7 @@ namespace YouDLl
             webView.Create(panel1.Handle);
             ModifyProgressBarColor.SetState(progressBar1, progessBarRed);
         }
+
         private String CheckUrlorId(string text)
         {
             try
@@ -35,6 +36,7 @@ namespace YouDLl
             }
             return text;
         }
+
         private async void VideoDownload()
         {
             var url = CheckUrlorId(txtUrl.Text);
@@ -70,6 +72,7 @@ namespace YouDLl
             await youtube.Videos.Streams.DownloadAsync(streamInfo, ofd.SelectedPath + "\\" + fileName, progress);
             MessageBox.Show("the Video download Completed");
         }
+
         private async void btnGo_Click(object sender, EventArgs e)
         {
             VideoDownload();
@@ -81,6 +84,7 @@ namespace YouDLl
         }
 
     }
+
     public static class ModifyProgressBarColor
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
